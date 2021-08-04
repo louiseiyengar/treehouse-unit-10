@@ -1,20 +1,41 @@
-import React, { createContext, useState } from "react";
+import React, { Component } from "react";
 import Data from './Data';
 
-export const Context = createContext();
+export const Context = React.createContext(); 
 
-function Provider({ children }) {
-  const data = new Data();
-  const [courses, setCourses] = useState([{id: 1, name: "Make Bread"}, {id: 2, name: "Make Mashed Potatoes"}]);
+export class Provider extends Component {
+  
+  state = {
+    courses: [],
+  };
 
-  const value = {
-    courses
+  
+  render () {
+    const value = {
+      courses: this.state.courses,
+      actions: {
+        getAllCourses: this.getAllCourses
+      }
+    }
+    return (
+      <Context.Provider value={value}>
+        {this.props.children}
+      </Context.Provider>
+    )
   }
-  return (
-    <Context.Provider value={value}>
-      {children}
-    </Context.Provider>
-  )
+  
+  getAllCourses = async() => {
+    const data = new Data();
+    const allCourses = await data.getCourses();
+    if (allCourses) {
+      this.setState(() => {
+        return {
+          courses: allCourses
+        }
+      });
+    }
+  } 
 }
+
 
 export default Provider;
