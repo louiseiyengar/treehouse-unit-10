@@ -25,7 +25,8 @@ class Data {
   async getCourses () {
     const response = await this.api('courses');
     if (response.status === 200) {
-      return response.json().then(data => data);
+      const data = await response.json();
+      return data;
     } else {
       return null;
     }
