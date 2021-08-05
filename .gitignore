@@ -10,8 +10,8 @@
 /build
 
 /project files
-markup/
-mockups/
+/markup
+/mockups
 
 # misc
 .DS_Store
