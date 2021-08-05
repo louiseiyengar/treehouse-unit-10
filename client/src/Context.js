@@ -9,7 +9,6 @@ export class Provider extends Component {
     courses: [],
   };
 
-  
   render () {
     const value = {
       courses: this.state.courses,
@@ -36,6 +35,5 @@ export class Provider extends Component {
     }
   } 
 }
-
 
 export default Provider;
