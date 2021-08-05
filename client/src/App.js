@@ -1,15 +1,14 @@
 import React from 'react';
-//import {BrowserRouter, Route} from 'react-router-dom';  
+
 import Header from './components/Header';
 import Courses from './components/Courses';
 
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <Header />
       <Courses />
-    </div>
-
+    </React.Fragment>
   )
 }
 
