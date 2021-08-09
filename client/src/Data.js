@@ -22,8 +22,10 @@ class Data {
     return fetch(url, options);
   }
 
-  async getCourses () {
-    const response = await this.api('courses');
+  async getCourses (id = null) {
+    const response = id ?
+      await this.api(`courses/${id}`) :
+      await this.api('courses')
     if (response.status === 200) {
       const data = await response.json();
       return data;
@@ -31,6 +33,17 @@ class Data {
       return null;
     }
   }
+
+  // async getCourse (id) {
+  //   console.log("id: " + id);
+  //   const response = await this.api(`courses/:${id}`)
+  //   if (response.status === 200) {
+  //     const data = await response.json();
+  //     return data;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 }
 
 export default Data;

@@ -4,16 +4,11 @@ import Data from './Data';
 export const Context = React.createContext(); 
 
 export class Provider extends Component {
-  
-  state = {
-    courses: [],
-  };
 
   render () {
     const value = {
-      courses: this.state.courses,
       actions: {
-        getAllCourses: this.getAllCourses
+        getCourses: this.getCourses
       }
     }
     return (
@@ -23,17 +18,17 @@ export class Provider extends Component {
     )
   }
   
-  getAllCourses = async() => {
+  getCourses = async(id = null) => {
     const data = new Data();
-    const allCourses = await data.getCourses();
-    if (allCourses) {
-      this.setState(() => {
-        return {
-          courses: allCourses
-        }
-      });
-    }
+    const allCourses = await data.getCourses(id);
+    return allCourses;
   } 
+
+  // getCourse = async(id) => {
+  //   const data = new Data();
+  //   const course = await data.getCourse(id);
+  //   return course;
+  // }
 }
 
 export default Provider;
