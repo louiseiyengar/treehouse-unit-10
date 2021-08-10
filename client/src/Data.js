@@ -34,16 +34,6 @@ class Data {
     }
   }
 
-  // async getCourse (id) {
-  //   console.log("id: " + id);
-  //   const response = await this.api(`courses/:${id}`)
-  //   if (response.status === 200) {
-  //     const data = await response.json();
-  //     return data;
-  //   } else {
-  //     return null;
-  //   }
-  // }
 }
 
 export default Data;

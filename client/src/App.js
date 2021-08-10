@@ -8,6 +8,7 @@ import {
 import Header from './components/Header';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
+import UpdateCourse from './components/UpdateCourse'
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
 
         <Switch>
           <Route exact path="/" component={Courses} />
-          <Route path="/courses/:id" component={CourseDetail} />
+          <Route exact path="/courses/:id" component={CourseDetail} />
+          <Route path="/courses/:id/update" component={UpdateCourse} />
         </Switch>
       </React.Fragment>
     </Router>
