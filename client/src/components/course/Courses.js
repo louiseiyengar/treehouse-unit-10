@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Context } from "../Context";
+import { Context } from "../../Context";
 
 import Course from './Course';
-import cross from '../images/cross.svg';
+import cross from '../../images/cross.svg';
 
 function Courses() {
   const context = useContext(Context);

@@ -3,7 +3,7 @@ class Data {
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const apiBaseUrl = 'http://localhost:5000/api/';
     const url = apiBaseUrl + path;
-  
+
     const options = {
       method,
       headers: {
@@ -22,6 +22,7 @@ class Data {
     return fetch(url, options);
   }
 
+  //COURSE METHODS
   async getCourses (id = null) {
     const response = id ?
       await this.api(`courses/${id}`) :
@@ -34,6 +35,34 @@ class Data {
     }
   }
 
+  //USER METHODS
+  async getUser(username, password) {
+    const response = await this.api('users', 'GET', null, true, { username, password });
+    if (response.status === 200) {
+      return response.json().then(data => data);
+    }
+    else if (response.status === 401) {
+      return null;
+    }
+    else {
+      throw new Error();
+    }
+  }
+      
+  async createUser(user) {
+    const response = await this.api('/users', 'POST', user);
+    if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
+   }
 }
 
 export default Data;

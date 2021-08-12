@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
-import { Context } from "../Context";
+import { Context } from '../../Context';
 
 function CourseDetail() {
   const context = useContext(Context);
@@ -21,7 +21,7 @@ function CourseDetail() {
       setDescription(data.description);
       setMaterials(data.materialsNeeded);
     })
-  },[]);
+  },[id]);
 
   return (
     <main>

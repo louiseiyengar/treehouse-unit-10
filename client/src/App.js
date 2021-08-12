@@ -6,20 +6,25 @@ import {
 } from 'react-router-dom';
 
 import Header from './components/Header';
-import Courses from './components/Courses';
-import CourseDetail from './components/CourseDetail';
-import UpdateCourse from './components/UpdateCourse'
+
+import UserSignIn from './components/authorization/UserSignIn';
+import UserSignOut from './components/authorization/UserSignOut';
+
+import Courses from './components/course/Courses';
+import CourseDetail from './components/course/CourseDetail';
+import UpdateCourse from './components/course/UpdateCourse'
 
 function App() {
   return (
     <Router>
       <React.Fragment>
         <Header />
-
         <Switch>
           <Route exact path="/" component={Courses} />
-          <Route exact path="/courses/:id" component={CourseDetail} />
           <Route path="/courses/:id/update" component={UpdateCourse} />
+          <Route path="/courses/:id" component={CourseDetail} />
+          <Route path="/signin" component={UserSignIn} />
+          <Route path="/signout" component={UserSignOut} />
         </Switch>
       </React.Fragment>
     </Router>
