@@ -31,7 +31,7 @@ const UserSignIn = () => {
           if (user === null) {
             setErrors([ 'Sign-in was unsuccessful' ])
           } else {
-            history.push('/courses/1');
+            history.push('/');
           }
         })
         .catch((error) => {
@@ -39,7 +39,7 @@ const UserSignIn = () => {
           history.push('/error');
         });
     } else {
-      setErrors([ 'Please enter emailAddress and password']);
+      setErrors([ 'Please enter your Email Address and Password']);
     }
   }
 
@@ -47,12 +47,11 @@ const UserSignIn = () => {
     <main>
       <div className="form--centered">
           <h2>Sign In</h2>
-          
           <form>
               <label htmlFor="emailAddress">Email Address</label>
-              <input id="emailAddress" name="emailAddress" type="email" value={username} onChange={handleChange} required />
+              <input id="emailAddress" name="emailAddress" type="email" value={username} onChange={handleChange} />
               <label htmlFor="password">Password</label>
-              <input id="password" name="password" type="password" value={password} onChange={handleChange} required />
+              <input id="password" name="password" type="password" value={password} onChange={handleChange} />
               <button className="button" type="submit" onClick={submit}>Sign In</button>
               <button className="button button-secondary" onClick={cancel}>Cancel</button>
           </form>

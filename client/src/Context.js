@@ -15,8 +15,8 @@ export class Provider extends Component {
   render () {
     const value = {
       authenticatedUser: this.state.authenticatedUser,
+      data: this.data,
       actions: {
-        getCourses: this.getCourses,
         signIn: this.signIn,
         signOut: this.signOut
       }
@@ -27,16 +27,12 @@ export class Provider extends Component {
       </Context.Provider>
     )
   }
-  
-  getCourses = async(id = null) => {
-    const allCourses = await this.data.getCourses(id);
-    return allCourses;
-  } 
 
   signIn = async (username, password) => {
     const user = await this.data.getUser(username, password);
 
     if (user !== null) {
+      user.password = btoa(password);
       this.setState(() => {
         return {
           authenticatedUser: user,

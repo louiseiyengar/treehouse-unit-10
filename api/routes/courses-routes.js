@@ -50,6 +50,7 @@ router.get('/:id', asyncHandler(async(req, res) => {
 */
 router.post('/', bodyParser, authenticateUser, asyncHandler(async (req, res) => {
   //insert new course in database
+  console.log("IN API do you get here", req);
   const newRecord = await Course.create({
     title: req.body.title,
     description: req.body.description,
@@ -58,7 +59,7 @@ router.post('/', bodyParser, authenticateUser, asyncHandler(async (req, res) => 
     userId: req.user.id,      //this is the authenticated user's id
   });
 
-  res.status(201).location('/api/courses/' + newRecord.id).end();
+  res.status(201).location('/api/courses/').end();
 }));
 
 /*

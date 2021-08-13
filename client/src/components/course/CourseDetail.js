@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 import { Context } from '../../Context';
@@ -12,9 +12,10 @@ function CourseDetail() {
   const [materials, setMaterials] = useState('');
 
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    context.actions.getCourses(id)
+    context.data.getCourses(id)
     .then(data => {
       setCourse(data);
       setUser(data.User);
@@ -23,13 +24,31 @@ function CourseDetail() {
     })
   },[id]);
 
+  const handleDelete = () => {
+    user.password = context.authenticatedUser.password;
+    context.data.deleteCourse(id, user)
+    .then(response => {
+      if (response.status === 204) {
+        history.push('/')
+      } else {
+        throw Error();
+      }
+    })
+  }
+
   return (
     <main>
       <div className="actions--bar">
           <div className="wrap">
-              <a className="button" href={`/courses/${id}/update`}>Update Course</a>
-              <a className="button" href="update-course.html">Delete Course</a>
-              <a className="button button-secondary" href="/">Return to List</a>
+              {context.authenticatedUser && (context.authenticatedUser.id === user.id) ? (
+                <React.Fragment>
+                  <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
+                  <button className="button" onClick={handleDelete}>Delete Course</button>
+                  <Link className="button button-secondary" to={'/'}>Return to List</Link>
+                </React.Fragment>
+              ) : (
+                <Link className="button button-secondary" to={'/'}>Return to List</Link>
+              )}
           </div>
       </div>
             

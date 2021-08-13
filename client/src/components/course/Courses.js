@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Context } from "../../Context";
 
 import Course from './Course';
@@ -10,7 +11,7 @@ function Courses() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    context.actions.getCourses()
+    context.data.getCourses()
     .then(data => {
       setCourses(data);
       setLoading(false)
@@ -24,12 +25,12 @@ function Courses() {
           courses ? courses.map((course) => <Course key={course.id} course={course} />) :
           <h3>No courses currently available</h3>
         }
-        <a className="course--module course--add--module" href="create-course.html">
-            <span className="course--add--title">
-              <img src={cross} alt="cross" className="add" />
-              New Course
-            </span>
-        </a>
+        <Link className="course--module course--add--module" to={'/courses/create'}>
+          <span className="course--add--title">
+            <img src={cross} alt="cross" className="add" />
+            New Course
+          </span>
+        </Link>
       </div>
     </main>
   )
