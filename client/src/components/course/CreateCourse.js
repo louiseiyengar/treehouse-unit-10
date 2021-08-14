@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Form from '../Form';
 import { Context } from '../../Context';
 
@@ -48,7 +48,7 @@ function CreateCourse() {
       userId
     };
 
-    context.data.createCourse(course, authenticatedUser)
+    context.data.createUpdateCourse(course, authenticatedUser)
     .then( errors => {
       if (errors.length) {
         setErrors(errors);

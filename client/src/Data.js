@@ -16,7 +16,7 @@ class Data {
     }
 
     if (requiresAuth) {
-      const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
+      const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
 
@@ -43,12 +43,26 @@ class Data {
     return response;
   }
 
-  async createCourse(course, user) {
+  async createUpdateCourse(course, user, id = null) {
     const username = user.emailAddress;
     const password = atob(user.password);
+    let method = '';
+    let responseStatus = 0;
+    let URI = ''
+    if (id) {
+      //update course
+      method = "PUT"
+      responseStatus = 204;
+      URI = `/courses/${id}`;
+    } else {
+      //create course
+      method = "POST"
+      responseStatus = 201;
+      URI = `/courses/`;
+    }
 
-    const response = await this.api('/courses', 'POST', course, true, { username, password });
-    if (response.status === 201) {
+    const response = await this.api(URI, method, course, true, { username, password });
+    if (response.status === responseStatus) {
       return [];
     }
     else if (response.status === 400) {
@@ -61,9 +75,46 @@ class Data {
     }
    }
 
+  // async createCourse(course, user) {
+  //   const username = user.emailAddress;
+  //   const password = atob(user.password);
+
+  //   const response = await this.api('/courses', 'POST', course, true, { username, password });
+  //   if (response.status === 201) {
+  //     return [];
+  //   }
+  //   else if (response.status === 400) {
+  //     return response.json().then(data => {
+  //       return data.errors;
+  //     });
+  //   }
+  //   else {
+  //     throw new Error();
+  //   }
+  //  }
+
+  //  async updateCourse(id, course, user) {
+
+  //   const username = user.emailAddress;
+  //   const password = atob(user.password);
+
+  //   const response = await this.api(`/courses/${id}`, 'PUT', course, true, { username, password });
+  //   if (response.status === 204) {
+  //     return [];
+  //   }
+  //   else if (response.status === 400) {
+  //     return response.json().then(data => {
+  //       return data.errors;
+  //     });
+  //   }
+  //   else {
+  //     throw new Error();
+  //   }
+  //  }
+
   //USER METHODS
-  async getUser(username, password) {
-    const response = await this.api('/users', 'GET', null, true, { username, password });
+  async getUser(emailAddress, password) {
+    const response = await this.api('/users', 'GET', null, true, { emailAddress, password });
     if (response.status === 200) {
       return response.json().then(data => data);
     }

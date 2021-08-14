@@ -72,7 +72,7 @@ function UserSignUp () {
             <input id="firstName" name="firstName" type="text" onChange={handleChange} value={firstName} />
             <label htmlFor="lastName">Last Name</label>
             <input id="lastName" name="lastName" type="text" onChange={handleChange} value={lastName} />
-            <label htmlFor="emailAddress">emailAddress Address</label>
+            <label htmlFor="emailAddress">Email Address</label>
             <input id="emailAddress" name="emailAddress" type="emailAddress" onChange={handleChange} value={emailAddress} />
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" onChange={handleChange} value={password} />
