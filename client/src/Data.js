@@ -37,14 +37,14 @@ class Data {
   }
 
   async deleteCourse (courseId, user) {
-    const username = user.emailAddress;
+    const emailAddress = user.emailAddress;
     const password = atob(user.password);
-    const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, { username, password });
+    const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, { emailAddress, password });
     return response;
   }
 
   async createUpdateCourse(course, user, id = null) {
-    const username = user.emailAddress;
+    const emailAddress = user.emailAddress;
     const password = atob(user.password);
     let method = '';
     let responseStatus = 0;
@@ -61,7 +61,7 @@ class Data {
       URI = `/courses/`;
     }
 
-    const response = await this.api(URI, method, course, true, { username, password });
+    const response = await this.api(URI, method, course, true, { emailAddress, password });
     if (response.status === responseStatus) {
       return [];
     }
@@ -74,43 +74,6 @@ class Data {
       throw new Error();
     }
    }
-
-  // async createCourse(course, user) {
-  //   const username = user.emailAddress;
-  //   const password = atob(user.password);
-
-  //   const response = await this.api('/courses', 'POST', course, true, { username, password });
-  //   if (response.status === 201) {
-  //     return [];
-  //   }
-  //   else if (response.status === 400) {
-  //     return response.json().then(data => {
-  //       return data.errors;
-  //     });
-  //   }
-  //   else {
-  //     throw new Error();
-  //   }
-  //  }
-
-  //  async updateCourse(id, course, user) {
-
-  //   const username = user.emailAddress;
-  //   const password = atob(user.password);
-
-  //   const response = await this.api(`/courses/${id}`, 'PUT', course, true, { username, password });
-  //   if (response.status === 204) {
-  //     return [];
-  //   }
-  //   else if (response.status === 400) {
-  //     return response.json().then(data => {
-  //       return data.errors;
-  //     });
-  //   }
-  //   else {
-  //     throw new Error();
-  //   }
-  //  }
 
   //USER METHODS
   async getUser(emailAddress, password) {

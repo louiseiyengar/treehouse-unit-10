@@ -3,13 +3,15 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import Form from '../Form';
 import { Context } from '../../Context';
 
-const UserSignIn = () => {
-  const context = useContext(Context);
-  let history = useHistory();
+function UserSignIn () {
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPass] = useState('');
   const [errors, setErrors] = useState([]);
+
+  const context = useContext(Context);
+  const location = useLocation();
+  const history = useHistory();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -25,13 +27,15 @@ const UserSignIn = () => {
   const submit = (event) => {
     event.preventDefault();
 
+    const { from } = location.state || { from: { pathname: '/' } };
+
     if (emailAddress && password) {
       context.actions.signIn(emailAddress, password)
         .then((user) => {
           if (user === null) {
             setErrors([ 'Sign-in was unsuccessful' ])
           } else {
-            history.push('/');
+            history.push(from);
           }
         })
         .catch((error) => {
