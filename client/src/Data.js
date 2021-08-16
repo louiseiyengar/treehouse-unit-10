@@ -67,7 +67,7 @@ class Data {
     }
     else if (response.status === 400) {
       return response.json().then(data => {
-        return data.errors;
+        return data.message;
       });
     }
     else {
@@ -82,7 +82,7 @@ class Data {
       return response.json().then(data => data);
     }
     else if (response.status === 401) {
-      return null;
+      return response;
     }
     else {
       throw new Error();
@@ -91,12 +91,13 @@ class Data {
       
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
+
     if (response.status === 201) {
       return [];
     }
     else if (response.status === 400) {
       return response.json().then(data => {
-        return data.errors;
+        return data.message;
       });
     }
     else {

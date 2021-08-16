@@ -1,7 +1,8 @@
 import React, {useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
-import Form from '../Form';
 import { Context } from '../../Context';
+
+import ErrorsDisplay from '../ErrorsDisplay';
 
 
 function CreateCourse() {
@@ -70,6 +71,7 @@ function CreateCourse() {
     <main>
       <div className="wrap">
         <h2>Create Course</h2>
+        <ErrorsDisplay errors={ errors } />
         <form onSubmit={ handleSubmit }>
           <div className="main--flex">
             <div>

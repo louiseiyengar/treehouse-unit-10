@@ -5,6 +5,7 @@ import { Context } from '../Context';
 function Header () {
   const context = useContext(Context);
   const authUser = context.authenticatedUser;
+
   return (
     <header>
       <div className="wrap header--flex">

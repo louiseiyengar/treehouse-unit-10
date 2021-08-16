@@ -1,7 +1,8 @@
 import React, {useState, useContext} from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import Form from '../Form';
 import { Context } from '../../Context';
+
+import ErrorsDisplay from '../ErrorsDisplay';
 
 function UserSignIn () {
 
@@ -31,17 +32,17 @@ function UserSignIn () {
 
     if (emailAddress && password) {
       context.actions.signIn(emailAddress, password)
-        .then((user) => {
-          if (user === null) {
-            setErrors([ 'Sign-in was unsuccessful' ])
-          } else {
-            history.push(from);
-          }
-        })
-        .catch((error) => {
+      .then(response => {
+        if (!response.errors.length) {
+          history.push(from);
+        } else {
+          setErrors(response.errors)
+        }
+      })
+      .catch((error) => {
           console.error(error);
           history.push('/error');
-        });
+      });
     } else {
       setErrors([ 'Please enter your Email Address and Password']);
     }
@@ -51,6 +52,7 @@ function UserSignIn () {
     <main>
       <div className="form--centered">
           <h2>Sign In</h2>
+          <ErrorsDisplay errors={errors} />
           <form>
               <label htmlFor="emailAddress">Email Address</label>
               <input id="emailAddress" name="emailAddress" type="email" value={emailAddress} onChange={handleChange} />

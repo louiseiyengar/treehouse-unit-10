@@ -1,14 +1,16 @@
 import React, {useState, useContext} from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import Form from '../Form';
 import { Context } from '../../Context';
+
+import ErrorsDisplay from '../ErrorsDisplay';
 
 function UserSignUp () {
   const context = useContext(Context);
   let history = useHistory();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [emailAddress, setEmail] = useState('');
+  //for validation, email address must be null so check for proper email not also done if field not filled in
+  const [emailAddress, setEmail] = useState(null);     
   const [password, setPass] = useState('');
   const [errors, setErrors] = useState([]);
 
@@ -67,6 +69,7 @@ function UserSignUp () {
     <main>
       <div className="form--centered">
         <h2>Sign Up</h2>
+        <ErrorsDisplay errors={errors} />
         <form onSubmit={handleSubmit}>
             <label htmlFor="firstName">First Name</label>
             <input id="firstName" name="firstName" type="text" onChange={handleChange} value={firstName} />

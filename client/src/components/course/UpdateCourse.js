@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Form from '../Form';
 import { Context } from '../../Context';
+
+import ErrorsDisplay from '../ErrorsDisplay';
 
 function UpdateCourse () {
   const context = useContext(Context);
@@ -81,6 +82,7 @@ function UpdateCourse () {
     <main>
       <div className="wrap">
         <h2>Update Course</h2>
+        <ErrorsDisplay errors={ errors } />
         <form onSubmit={ handleSubmit }>
           <div className="main--flex">
             <div>

@@ -4,12 +4,11 @@ import { Context } from './Context';
 
 function PrivateRoute ({ component: Component, ...rest }) {
   const context = useContext(Context);
-  console.log(rest);
   return (
     <Route
       {...rest}
       render={props => context.authenticatedUser ? (
-            <Component {...props} />
+            <Component { ...props } />
           ) : (
             <Redirect to={{
               pathname: '/signin',

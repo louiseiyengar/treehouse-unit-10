@@ -20,18 +20,16 @@ import UpdateCourse from './components/course/UpdateCourse'
 function App() {
   return (
     <Router>
-      <React.Fragment>
         <Header />
         <Switch>
-          <Route exact path="/" component={Courses} />
-          <PrivateRoute path="/courses/create" component={CreateCourse} />
-          <PrivateRoute path="/courses/:id/update" component={UpdateCourse} />
-          <Route path="/courses/:id" component={CourseDetail} />
-          <Route path="/signin" component={UserSignIn} />
-          <Route path='/signup' component={UserSignUp} />
-          <Route path="/signout" component={UserSignOut} />
+          <Route exact path="/" component={ Courses } />
+          <PrivateRoute path="/courses/create" component={ CreateCourse } />
+          <PrivateRoute path="/courses/:id/update" component={ UpdateCourse } />
+          <Route path="/courses/:id" component={ CourseDetail } />
+          <Route path="/signin" component={ UserSignIn } />
+          <Route path='/signup' component={ UserSignUp } />
+          <Route path="/signout" component={ UserSignOut } />
         </Switch>
-      </React.Fragment>
     </Router>
     
   )

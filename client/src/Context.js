@@ -29,19 +29,23 @@ export class Provider extends Component {
   }
 
   signIn = async (emailAddress, password) => {
-    const user = await this.data.getUser(emailAddress, password);
+    const response = await this.data.getUser(emailAddress, password);
 
-    if (user !== null) {
-      user.password = btoa(password);
-      this.setState(() => {
-        return {
-          authenticatedUser: user,
-        };
-      });
-      const userString = JSON.stringify(user);
-      Cookies.set('authenticatedUser', userString, { expires: 1 });
+    if (response.status && (response.status === 401)) {
+      response.errors = ['Email Address and/or Password Are Incorrect']
+      //if emailAddress is in response object, a validated user has been found
+    } else if (response.emailAddress) {
+        response.password = btoa(password);
+        response.errors = [];
+        this.setState(() => {
+          return {
+            authenticatedUser: response,
+          };
+        });
+        const userString = JSON.stringify(response);
+        Cookies.set('authenticatedUser', userString, { expires: 1 });
     }
-    return user;
+    return response;
   }
 
   signOut = () => {

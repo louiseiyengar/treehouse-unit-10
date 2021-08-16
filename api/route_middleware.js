@@ -41,7 +41,7 @@ function asyncHandler(cb){
 function validationErrors(err) {
   return err.errors.map(validationError => {
     if (validationError.validatorKey === 'isEmail') {
-      return "Please provide a properly formatted email address for this user";
+      return "Please provide a properly formatted email address";
     } else {
       return validationError.message
     } 
