@@ -9,8 +9,7 @@ function UserSignUp () {
   let history = useHistory();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  //for validation, email address must be null so check for proper email not also done if field not filled in
-  const [emailAddress, setEmail] = useState(null);     
+  const [emailAddress, setEmail] = useState('');
   const [password, setPass] = useState('');
   const [errors, setErrors] = useState([]);
 

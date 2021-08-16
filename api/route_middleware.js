@@ -19,7 +19,7 @@ function asyncHandler(cb){
     } catch(err){
       if (err.name === 'SequelizeUniqueConstraintError') {
         err.status = 400;
-        err.message = "A user with this email address already exists"
+        err.message = ["A user with this email address already exists"]
       } else if (err.name === 'SequelizeValidationError') {
         err.status = 400;
         err.message = validationErrors(err);
