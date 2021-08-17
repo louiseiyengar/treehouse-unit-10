@@ -27,13 +27,11 @@ class Data {
   async getCourses (id = null) {
     const response = id ?
       await this.api(`/courses/${id}`) :
-      await this.api('/courses')
-    if (response.status === 200) {
-      const data = await response.json();
+      await this.api('/courses');
+
+      let data = await response.json();
+      data.status = response.status;
       return data;
-    } else {
-      return null;
-    }
   }
 
   async deleteCourse (courseId, user) {
@@ -47,31 +45,26 @@ class Data {
     const emailAddress = user.emailAddress;
     const password = atob(user.password);
     let method = '';
-    let responseStatus = 0;
     let URI = ''
     if (id) {
       //update course
       method = "PUT"
-      responseStatus = 204;
       URI = `/courses/${id}`;
     } else {
       //create course
       method = "POST"
-      responseStatus = 201;
       URI = `/courses/`;
     }
 
     const response = await this.api(URI, method, course, true, { emailAddress, password });
-    if (response.status === responseStatus) {
-      return [];
-    }
-    else if (response.status === 400) {
+    if (response.status === 400) {
       return response.json().then(data => {
-        return data.message;
+        data.status = response.status
+        return data;
       });
     }
     else {
-      throw new Error();
+      return response;
     }
    }
 
@@ -79,29 +72,27 @@ class Data {
   async getUser(emailAddress, password) {
     const response = await this.api('/users', 'GET', null, true, { emailAddress, password });
     if (response.status === 200) {
-      return response.json().then(data => data);
-    }
-    else if (response.status === 401) {
-      return response;
+      return response.json().then(data => {
+        data.status = response.status;
+        return data;
+      })
     }
     else {
-      throw new Error();
+      return response;
     }
   }
       
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
-
-    if (response.status === 201) {
-      return [];
-    }
-    else if (response.status === 400) {
+ 
+    if (response.status === 400) {
       return response.json().then(data => {
-        return data.message;
+        data.status = response.status;
+        return data;
       });
     }
     else {
-      throw new Error();
+      return response;
     }
    }
 }

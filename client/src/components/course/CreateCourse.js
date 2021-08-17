@@ -7,7 +7,7 @@ import ErrorsDisplay from '../ErrorsDisplay';
 
 function CreateCourse() {
   const context = useContext(Context);
-  let history = useHistory();
+  const history = useHistory();
 
   const [title, setCourseTitle] = useState('');
   const [description, setCourseDescription] = useState('');
@@ -50,11 +50,13 @@ function CreateCourse() {
     };
 
     context.data.createUpdateCourse(course, authenticatedUser)
-    .then( errors => {
-      if (errors.length) {
-        setErrors(errors);
-      } else {
+    .then( response => {
+      if (response.status === 400) {
+        setErrors(response.message);
+      } else if (response.status === 201) {
         history.push('/');
+      } else {
+        history.push('/error');
       }
     })
     .catch((err) => {

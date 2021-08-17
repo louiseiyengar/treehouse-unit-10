@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Context } from "../../Context";
 
 import Course from './Course';
@@ -7,6 +7,7 @@ import cross from '../../images/cross.svg';
 
 function Courses() {
   const context = useContext(Context);
+  const history = useHistory();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,6 +17,10 @@ function Courses() {
       setCourses(data);
       setLoading(false)
     })
+    .catch((error) => {
+      console.error(error);
+      history.push('/error')
+    }) 
   },[]);
 
   return (

@@ -10,6 +10,7 @@ function CourseDetail() {
   const [user, setUser] = useState({});
   const [description, setDescription] = useState('');
   const [materials, setMaterials] = useState('');
+  const [loading, setLoading] = useState(true)
 
   const { id } = useParams();
   const history = useHistory();
@@ -17,11 +18,20 @@ function CourseDetail() {
   useEffect(() => {
     context.data.getCourses(id)
     .then(data => {
-      setCourse(data);
-      setUser(data.User);
-      setDescription(data.description);
-      setMaterials(data.materialsNeeded);
+      if (data.status === 404) {
+        history.push('/notfound');
+      } else if (data.status === 200) {
+        setCourse(data);
+        setUser(data.User);
+        setDescription(data.description);
+        setMaterials(data.materialsNeeded);
+        setLoading(false);
+      }
     })
+    .catch((err) => {
+      console.log(err);
+      history.push('/error');
+    });
   },[id]);
 
   const handleDelete = () => {
@@ -31,29 +41,34 @@ function CourseDetail() {
       if (response.status === 204) {
         history.push('/')
       } else {
-        throw Error();
+        history.push('/error')
       }
     })
+    .catch((error) => {
+      console.error(error);
+      history.push('/error');
+    });
   }
 
   return (
     <main>
       <div className="actions--bar">
           <div className="wrap">
-              {context.authenticatedUser && (context.authenticatedUser.id === user.id) ? (
-                <React.Fragment>
-                  <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
-                  <button className="button" onClick={handleDelete}>Delete Course</button>
-                  <Link className="button button-secondary" to={'/'}>Return to List</Link>
-                </React.Fragment>
-              ) : (
+            {context.authenticatedUser && (context.authenticatedUser.id === user.id) ? (
+              <React.Fragment>
+                <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
+                <button className="button" onClick={handleDelete}>Delete Course</button>
                 <Link className="button button-secondary" to={'/'}>Return to List</Link>
-              )}
+              </React.Fragment>
+            ) : (
+              <Link className="button button-secondary" to={'/'}>Return to List</Link>
+            )}
           </div>
       </div>
             
       <div className="wrap">
         <h2>Course Detail</h2>
+        {(!loading) ? (
         <div className="main--flex">
           <div>
             <h3 className="course--detail--title">Course</h3>
@@ -74,6 +89,9 @@ function CourseDetail() {
               </ul> 
           </div>
         </div>
+        ) : (
+          <h3>Loading...</h3>
+        )}
       </div>
     </main>
   )

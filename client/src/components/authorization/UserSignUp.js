@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Context } from '../../Context';
 
 import ErrorsDisplay from '../ErrorsDisplay';
@@ -44,14 +44,16 @@ function UserSignUp () {
     };
 
     context.data.createUser(user)
-    .then( errors => {
-      if (errors.length) {
-        setErrors(errors);
-      } else {
+    .then( response => {
+      if (response.status === 400) {
+        setErrors(response.message);
+      } else if (response.status === 201) {
         context.actions.signIn(emailAddress, password)
           .then(() => {
             history.push('/');
-          });
+          })
+      } else {
+        history.push('/error');
       }
     })
     .catch((err) => {

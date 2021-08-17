@@ -12,6 +12,7 @@ function UpdateCourse () {
   const [description, setCourseDescription] = useState('');
   const [estimatedTime, setEstimatedTime] = useState('');
   const [materialsNeeded, setMaterialsNeeded] = useState('');
+  const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
 
   const { id } = useParams();
@@ -51,11 +52,13 @@ function UpdateCourse () {
     };
 
     context.data.createUpdateCourse(course, authenticatedUser, id)
-    .then( errors => {
-      if (errors.length) {
-        setErrors(errors);
-      } else {
+    .then( response => {
+      if (response.status === 400) {
+        setErrors(response.message);
+      } else if (response.status === 204) {
         history.push('/');
+      } else {
+        history.push('/error');
       }
     })
     .catch((err) => {
@@ -71,40 +74,55 @@ function UpdateCourse () {
    useEffect(() => {
     context.data.getCourses(id)
     .then(data => {
-      setCourseTitle(data.title);
-      setCourseDescription(data.description);
-      setEstimatedTime(data.estimatedTime);
-      setMaterialsNeeded(data.materialsNeeded);
-    })
+      const { User } = data;
+
+      if (data.status === 404) {
+        history.push('/notfound')
+      }else if (User.id !== context.authenticatedUser.id) {
+        history.push('/forbidden')
+      } else {
+        setCourseTitle(data.title);
+        setCourseDescription(data.description);
+        setEstimatedTime(data.estimatedTime);
+        setMaterialsNeeded(data.materialsNeeded);
+        setLoading(false);
+      }
+   })
   },[id]);
 
   return (
     <main>
       <div className="wrap">
         <h2>Update Course</h2>
-        <ErrorsDisplay errors={ errors } />
-        <form onSubmit={ handleSubmit }>
-          <div className="main--flex">
-            <div>
-              <label htmlFor="courseTitle">Course Title</label>
-              <input id="courseTitle" name="title" type="text" onChange={ handleChange } value={ title } />
+        {(!loading) ? (
+        <React.Fragment>
+          <ErrorsDisplay errors={ errors } />
+          <form onSubmit={ handleSubmit }>
+            <div className="main--flex">
+              <div>
+                <label htmlFor="courseTitle">Course Title</label>
+                <input id="courseTitle" name="title" type="text" onChange={ handleChange } value={ title } />
 
-              <p>By { `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}` }</p>
+                <p>By { `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}` }</p>
 
-              <label htmlFor="courseDescription">Course Description</label>
-              <textarea id="courseDescription" name="description" onChange={ handleChange } value={ description } />
-            </div> 
-            <div>
-              <label htmlFor="estimatedTime">Estimated Time</label>
-              <input id="estimatedTime" name="estimatedTime" type="text" onChange={ handleChange } value={ estimatedTime } />
+                <label htmlFor="courseDescription">Course Description</label>
+                <textarea id="courseDescription" name="description" onChange={ handleChange } value={ description } />
+              </div> 
+              <div>
+                <label htmlFor="estimatedTime">Estimated Time</label>
+                <input id="estimatedTime" name="estimatedTime" type="text" onChange={ handleChange } value={ estimatedTime } />
 
-              <label htmlFor="materialsNeeded">Materials Needed</label>
-              <textarea id="materialsNeeded" name="materialsNeeded" onChange={ handleChange } value={ materialsNeeded } />
+                <label htmlFor="materialsNeeded">Materials Needed</label>
+                <textarea id="materialsNeeded" name="materialsNeeded" onChange={ handleChange } value={ materialsNeeded } />
+              </div>
             </div>
-        </div>
-        <button className="button" type="submit">Update Course</button>
-        <button className="button button-secondary" onClick={ handleCancel }>Cancel</button>
-      </form>
+            <button className="button" type="submit">Update Course</button>
+            <button className="button button-secondary" onClick={ handleCancel }>Cancel</button>
+          </form>
+        </React.Fragment>
+        ) : (
+          <h3>Loading...</h3>
+        )}
       </div> 
     </main>
   )

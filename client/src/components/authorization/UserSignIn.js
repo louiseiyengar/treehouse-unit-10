@@ -33,15 +33,17 @@ function UserSignIn () {
     if (emailAddress && password) {
       context.actions.signIn(emailAddress, password)
       .then(response => {
-        if (!response.errors.length) {
+        if (response.status === 200) {
           history.push(from);
-        } else {
+        } else if (response.status === 401) {
           setErrors(response.errors)
+        } else {
+          history.push('/error')
         }
       })
       .catch((error) => {
-          console.error(error);
-          history.push('/error');
+        console.error(error);
+        history.push('/error');
       });
     } else {
       setErrors([ 'Please enter your Email Address and Password']);
