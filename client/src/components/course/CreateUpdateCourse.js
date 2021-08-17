@@ -9,6 +9,7 @@ function CreateUpdateCourse (props) {
   let history = useHistory();
 
   const { id } = props;
+  const displayText = id ? "Update Course" : "Create Course";
 
   const [title, setCourseTitle] = useState('');
   const [description, setCourseDescription] = useState('');
@@ -97,7 +98,7 @@ function CreateUpdateCourse (props) {
   return (
     <main>
       <div className="wrap">
-        <h2>Update Course</h2>
+        <h2>{ displayText }</h2>
         {(!loading) ? (
         <React.Fragment>
           <ErrorsDisplay errors={ errors } />
@@ -120,7 +121,7 @@ function CreateUpdateCourse (props) {
                 <textarea id="materialsNeeded" name="materialsNeeded" onChange={ handleChange } value={ materialsNeeded } />
               </div>
             </div>
-            <button className="button" type="submit">{ id ? "Update Course" : "Create Course" }</button>
+            <button className="button" type="submit">{ displayText }</button>
             <button className="button button-secondary" onClick={ handleCancel }>Cancel</button>
           </form>
         </React.Fragment>
