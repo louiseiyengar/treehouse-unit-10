@@ -59,7 +59,7 @@ function UserSignIn () {
               <label htmlFor="emailAddress">Email Address</label>
               <input id="emailAddress" name="emailAddress" type="email" value={emailAddress} onChange={handleChange} />
               <label htmlFor="password">Password</label>
-              <input id="password" name="password" type="password" value={password} onChange={handleChange} />
+              <input id="password" name="password" type="password" value={password} onChange={handleChange} autoComplete="current-password" />
               <button className="button" type="submit" onClick={submit}>Sign In</button>
               <button className="button button-secondary" onClick={cancel}>Cancel</button>
           </form>

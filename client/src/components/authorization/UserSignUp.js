@@ -73,13 +73,13 @@ function UserSignUp () {
         <ErrorsDisplay errors={errors} />
         <form onSubmit={handleSubmit}>
             <label htmlFor="firstName">First Name</label>
-            <input id="firstName" name="firstName" type="text" onChange={handleChange} value={firstName} />
+            <input id="firstName" name="firstName" type="text" onChange={handleChange} value={firstName} autoComplete="first-name" />
             <label htmlFor="lastName">Last Name</label>
-            <input id="lastName" name="lastName" type="text" onChange={handleChange} value={lastName} />
+            <input id="lastName" name="lastName" type="text" onChange={handleChange} value={lastName} autoComplete="name" />
             <label htmlFor="emailAddress">Email Address</label>
-            <input id="emailAddress" name="emailAddress" type="emailAddress" onChange={handleChange} value={emailAddress} />
+            <input id="emailAddress" name="emailAddress" type="emailAddress" onChange={handleChange} value={emailAddress} autoComplete="email" />
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" onChange={handleChange} value={password} />
+            <input id="password" name="password" type="password" onChange={handleChange} value={password} autoComplete="current-password" />
             <button className="button" type="submit">Sign Up</button>
             <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
         </form>

@@ -88,7 +88,7 @@ function UpdateCourse () {
         setLoading(false);
       }
    })
-  },[id]);
+  },[id, context.authenticatedUser.id, context.data, history]);
 
   return (
     <main>

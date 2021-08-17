@@ -4,7 +4,6 @@ import { Context } from '../../Context';
 
 import ErrorsDisplay from '../ErrorsDisplay';
 
-
 function CreateCourse() {
   const context = useContext(Context);
   const history = useHistory();

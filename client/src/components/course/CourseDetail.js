@@ -32,7 +32,7 @@ function CourseDetail() {
       console.log(err);
       history.push('/error');
     });
-  },[id]);
+  },[id, context.data, history]);
 
   const handleDelete = () => {
     user.password = context.authenticatedUser.password;
