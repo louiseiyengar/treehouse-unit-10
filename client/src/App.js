@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import Header from './components/Header';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 import NotFound from './components/NotFound';
 import Forbidden from './components/Forbidden';
 import UnhandledError from './components/UnhandledError';
