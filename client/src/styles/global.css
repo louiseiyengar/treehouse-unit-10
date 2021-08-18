@@ -30,6 +30,10 @@ a {
 }
 header {
     background: #57496e;
+    background-image: linear-gradient(#57496e, #947dba);
+    border-bottom: 1px solid black;
+    box-shadow: 0 0 30px #333;
+    font-family: 'Patua One', cursive;
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 2rem;
@@ -40,11 +44,12 @@ header {
     align-items: center;
 }
 .header--logo a {
-    font-size: 1.25rem;
+    font-size: 1.8rem;
+    letter-spacing: .2rem;
     color: #fff;
 }
 header li {
-    font-size: .8rem;
+    font-size: 1.1rem;
 }
 header nav a {
     color: #dbd;
@@ -67,6 +72,9 @@ header nav a:hover {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     display: block;
+}
+.course--module:hover, .course--module:focus {
+    box-shadow: 5px 5px 5px #999;
 }
 .course--label {
     color: #fff;
@@ -185,6 +193,7 @@ textarea {
 }
 .button:not(.button-secondary):hover {
     background: #63537d;
+    color: #dbd;
     cursor: pointer;
 }
 .button-secondary {
@@ -194,7 +203,8 @@ textarea {
     transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
-    color: #63537d;
+    color: #fff;
+    background: #dbd;
     box-shadow: 0 0 0 2px #63537d inset;
     cursor: pointer;
 }

@@ -11,18 +11,6 @@ function Courses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const getCourses = useCallback(() => {
-  //   context.data.getCourses()
-  //   .then(data => {
-  //     setCourses(data);
-  //     setLoading(false)
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //     history.push('/error')
-  //   }) 
-  // });
-
   useEffect(() => {
     context.data.getCourses()
     .then(data => {

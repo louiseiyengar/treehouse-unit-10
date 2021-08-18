@@ -26,6 +26,8 @@ function CourseDetail() {
         setDescription(data.description);
         setMaterials(data.materialsNeeded);
         setLoading(false);
+      } else {
+        history.push('/error')
       }
     })
     .catch((err) => {
