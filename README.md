@@ -3,14 +3,15 @@
 For this project, I created a React client for a school database.  The database is accessed through REST api calls made using JavaScript's fetch method.  The API uses the Express Web Application Framework, the Sequelize ORM, and a SQLite database.
 
 Information about the clent project:
-* There is a sign up screen where a user can sign up to gain permission to create, update, and delete courses.
-* There is a sign in screen to authenticate users
-* An authenticated who creates a course, owns that course
-* Private Routes to ensure only authenticated users, who own the course, can create and update the course.
 * The home screen shows boxes with the titles of all courses.  A user can click on the box to view the courses's details screen.
+* There is a sign up screen where a user can sign up to gain permission to create, update, and delete courses.
+* There is a sign in screen to authenticate users who have previously signed up.
+* An authenticated user who creates a course, owns that course.
+* Two Private Routes exist to ensure only an authenticated user can create and update a course.  Therefore, if a user,
+ who has not signed in, navigates to the route to create a course or to update a particular course, that user will be re-directed to the sign in screen.
 * The course details screen will display of sub-navigation menu that has a button that links to the home screen.
 * The course details screen sub-navigation menu will only display Update Course or Delete Course button links if the user is authenticated and owns the course.
-* The API calls use Basic Auth to send a user email and password to authenticate a user.
+* The API calls use Basic Auth to send a user email address and password to authenticate a user.
 * Authenticated User information is stored in a Cookie, so a user remains authenticated for 1 day, unless the user signs out.
 
 ======= Instuctions to view project locally =========
