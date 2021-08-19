@@ -30,4 +30,4 @@ Run the following:
 =====================================================
 
 Screenshot of the Course Details Page for an Authenticaed User.
-
+![unit10-screenshot](https://user-images.githubusercontent.com/42808209/130010459-ef0ffa54-9456-40b7-83a8-784cc6386087.jpg)
