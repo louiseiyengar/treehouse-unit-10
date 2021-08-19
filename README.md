@@ -17,7 +17,7 @@ Information about the client project:
 ======= Instuctions to view project locally =========
 1. To run this project locally, you must have node.js and npm installed.
 1. Download or clone the project from this repo.
-1. Open a terminal window, if you don't have one opent. You will see two folders in the project.  Navigate into the 'api' folder.
+1. Open a terminal window, if you don't have one opened. You will see two folders in the project.  Navigate into the 'api' folder.
 Run the following:
   * npm install
   * npm run seed (you should finally see the text, 'Database successfully initialized'.
