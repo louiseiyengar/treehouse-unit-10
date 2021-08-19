@@ -2,7 +2,7 @@
 
 For this project, I created a React client for a school database.  The database is accessed through REST api calls made using JavaScript's fetch method.  The API uses the Express Web Application Framework, the Sequelize ORM, and a SQLite database.
 
-Information about the clent project:
+Information about the client project:
 * The home screen shows boxes with the titles of all courses.  A user can click on the box to view the courses's details screen.
 * There is a sign up screen where a user can sign up to gain permission to create, update, and delete courses.
 * There is a sign in screen to authenticate users who have previously signed up.
