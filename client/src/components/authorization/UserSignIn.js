@@ -46,8 +46,9 @@ function UserSignIn () {
         //sign in successful
         if (response.status === 200) {
           history.push(from);
-        //there are validation errors
-        } else if (response.status === 401) {
+        //Either user not found for email/password combo (401) or 
+        //Email not properly formatted (400)
+        } else if (response.status === 401 || response.status === 400) {
           setErrors(response.errors)
         } else {
           history.push('/error')

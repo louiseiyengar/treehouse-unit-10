@@ -38,8 +38,13 @@ export class Provider extends Component {
    */
   signIn = async (emailAddress, password) => {
     const response = await this.data.getUser(emailAddress, password);
+   
+    //no user could be found with this email address and/or password
     if (response.status === 401) {
       response.errors = ['Email Address and/or Password Are Incorrect'];
+    //Email improperly formatted will cause a 400 validation error
+    } else if (response.status === 400) {
+      response.errors = ['Please be sure you have entered a properly formatted Email Address']
     } else if (response.status === 200) {
         //encrypt password for authenticatedUser property and for Cookie.
         response.password = btoa(password);
