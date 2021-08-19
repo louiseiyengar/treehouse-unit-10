@@ -5,6 +5,13 @@ import { Context } from "../../Context";
 import Course from './Course';
 import cross from '../../images/cross.svg';
 
+/*
+  This component calls the data object's getCourses method to get all courses
+  existing for this application.  It diplays that title of each course in a box that
+  links to a course details page.
+
+  The component also displays a box that will allow a user to add a course.
+*/
 function Courses() {
   const context = useContext(Context);
   const history = useHistory();

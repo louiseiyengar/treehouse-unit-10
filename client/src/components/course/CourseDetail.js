@@ -4,6 +4,17 @@ import ReactMarkdown from 'react-markdown';
 
 import { Context } from '../../Context';
 
+/*
+  This component will retrieve and display all information about one course, and it will
+  retrieve information about the user who owns that course.
+
+  If the user is authenticated and owns the course, a sub navigation bar will appear with buttons
+  allowing the user to delete or update the course.  If the user is not signed in or the user doesn't
+  own the course, the sub navigation bar will not display these buttons and will only have a button
+  linking to the home page.
+
+  This component will also handle the course delete.
+*/
 function CourseDetail() {
   const context = useContext(Context);
   const [course, setCourse] = useState({});
@@ -16,10 +27,14 @@ function CourseDetail() {
   const history = useHistory();
 
   useEffect(() => {
+    //call the Data object's getCourses method.  Because an
+    //id existed in the URI, getCourses will retrieve this one course.
     context.data.getCourses(id)
     .then(data => {
+      //course not found
       if (data.status === 404) {
         history.push('/notfound');
+      //course successfully found
       } else if (data.status === 200) {
         setCourse(data);
         setUser(data.User);
@@ -36,10 +51,12 @@ function CourseDetail() {
     });
   },[id, context.data, history]);
 
+  //note that the delete button will only appear if user authenticated.
   const handleDelete = () => {
     user.password = context.authenticatedUser.password;
     context.data.deleteCourse(id, user)
     .then(response => {
+      //delete successful. go to home page.
       if (response.status === 204) {
         history.push('/')
       } else {

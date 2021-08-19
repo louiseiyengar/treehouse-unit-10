@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * This component will display validation errors for the UserSignIn, UserSignUp and CreateUpdateCoursse
+ * components.  It will be passed an array of error validation message to display.
+ */
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
   if (errors.length) {

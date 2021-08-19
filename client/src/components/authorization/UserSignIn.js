@@ -4,8 +4,16 @@ import { Context } from '../../Context';
 
 import ErrorsDisplay from '../ErrorsDisplay';
 
-function UserSignIn () {
+/*
+  This component renders a form that allows a user to sign in, if that user
+  has already signed up. If the user successfully signs in, that user will be
+  redirected to the home screen, or the last screen that user was on, if the
+  page required the user to be authenticated to view it. 
 
+  The component also renders an error component with validation errors if the 
+  user didn't successfully sign in.
+*/
+function UserSignIn () {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPass] = useState('');
   const [errors, setErrors] = useState([]);
@@ -27,14 +35,18 @@ function UserSignIn () {
 
   const submit = (event) => {
     event.preventDefault();
-
+    
+    //once user is signed in, the user should redirect to the last page the user was on
+    //or go the the home page.
     const { from } = location.state || { from: { pathname: '/' } };
 
     if (emailAddress && password) {
       context.actions.signIn(emailAddress, password)
       .then(response => {
+        //sign in successful
         if (response.status === 200) {
           history.push(from);
+        //there are validation errors
         } else if (response.status === 401) {
           setErrors(response.errors)
         } else {

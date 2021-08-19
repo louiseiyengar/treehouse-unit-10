@@ -28,13 +28,20 @@ export class Provider extends Component {
     )
   }
 
+    /**
+   * Uses email address and password to get authenticated user, set authenticated user as a property of
+   * Context's state, and put Authenticated User information in a Cookie to last one day. 
+   * 
+   * @param {string}  emailAddress
+   * @param {string}  password
+   * @return {object} - response 
+   */
   signIn = async (emailAddress, password) => {
     const response = await this.data.getUser(emailAddress, password);
-
-    if (response.status && (response.status === 401)) {
-      response.errors = ['Email Address and/or Password Are Incorrect']
-      //if emailAddress is in response object, a validated user has been found
-    } else if (response.emailAddress) {
+    if (response.status === 401) {
+      response.errors = ['Email Address and/or Password Are Incorrect'];
+    } else if (response.status === 200) {
+        //encrypt password for authenticatedUser property and for Cookie.
         response.password = btoa(password);
         response.errors = [];
         this.setState(() => {

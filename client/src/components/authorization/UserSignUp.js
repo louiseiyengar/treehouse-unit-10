@@ -4,6 +4,12 @@ import { Context } from '../../Context';
 
 import ErrorsDisplay from '../ErrorsDisplay';
 
+/*
+  This component renders a form that allows a user to sign up.  If sign up is successful, the Context's 
+  sign-in method will be called, the use will be signed in, and redirected to the home page.
+
+  Also renders a component that displays validation errors, if there are validation errors
+*/
 function UserSignUp () {
   const context = useContext(Context);
   let history = useHistory();
@@ -45,9 +51,12 @@ function UserSignUp () {
 
     context.data.createUser(user)
     .then( response => {
+      //sign up not successful, put validation errors in state
       if (response.status === 400) {
         setErrors(response.message);
+      //sign up was successful
       } else if (response.status === 201) {
+        //call signIn to sign in new user, then redirect to home page.
         context.actions.signIn(emailAddress, password)
           .then(() => {
             history.push('/');

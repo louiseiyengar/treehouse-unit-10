@@ -4,10 +4,19 @@ import { Context } from '../../Context';
 
 import ErrorsDisplay from '../ErrorsDisplay';
 
+/*
+  This component will render the form for both the Create Course and Update Course paths.  When 
+  props is passed in with a numeric course id (property: id), then the form is to be used to update 
+  the course with that id.  Note that only an authenticated user who owns the course can update it.
+
+  If the prop.id is null, the form is to be used to create a course. The current authenticated user
+  will own the course.
+*/
 function CreateUpdateCourse (props) {
   const context = useContext(Context);
   let history = useHistory();
 
+  //course id sent in as property with props. if null, then form used to create a course
   const { id } = props;
   const displayText = id ? "Update Course" : "Create Course";
 
@@ -54,8 +63,10 @@ function CreateUpdateCourse (props) {
 
     context.data.createUpdateCourse(course, authenticatedUser, id)
     .then( response => {
+      //validation errors must be displayed
       if (response.status === 400) {
         setErrors(response.message);
+      //update or create course successful, redirect to home page.
       } else if ((response.status === 204) || (response.status === 201)) {
         history.push('/');
       } else {
@@ -73,13 +84,16 @@ function CreateUpdateCourse (props) {
    }
 
   useEffect(() => {
+    //if id is numeric, it is a course update, and initially, form fields must be
+    //filled, so course data must be retrieved.
     if (id) {
       context.data.getCourses(id)
       .then(data => {
+        //data of user who owns the course
         const { User } = data;
-
         if (data.status === 404) {
           history.push('/notfound')
+        //userid of course owner must be the same as the id of the authenticated user
         }else if (User.id !== context.authenticatedUser.id) {
           history.push('/forbidden')
         } else {
@@ -91,6 +105,7 @@ function CreateUpdateCourse (props) {
         }
     })
   } else {
+    //if this is a course creation, don't get data.
     setLoading(false);
   }
   },[id, context.authenticatedUser.id, context.data, history]);
