@@ -29,6 +29,6 @@ Run the following:
 
 =====================================================
 
-Screenshot of the Course Details Page for an Authenticaed User.
+Screenshot of the Course Details Page for an Authenticated User.
 
-![unit10-screenshot](https://user-images.githubusercontent.com/42808209/130010802-d00fe3e9-8e2d-4a6c-998a-cb7875a37de9.jpg)
+![unit10-screenshot](https://user-images.githubusercontent.com/42808209/130013705-ee63ca59-b72d-4237-94f2-69aee57fcecf.jpg)
