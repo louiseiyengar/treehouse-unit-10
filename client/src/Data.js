@@ -128,6 +128,9 @@ class Data {
    * response with status code.
    */
   async getUser(emailAddress, password) {
+    //emailAddress is always in lower case in the database
+    emailAddress = emailAddress.toLowerCase();
+
     const response = await this.api('/users', 'GET', null, true, { emailAddress, password });
     if (response.status === 200) {
       return response.json().then(data => {
@@ -147,6 +150,9 @@ class Data {
    * status and an array of error objects
    */
   async createUser(user) {
+    //email must be in lower case in the database
+    user.emailAddress = user.emailAddress.toLowerCase();
+
     const response = await this.api('/users', 'POST', user);
     //validation errors - return array of validation messages
     if (response.status === 400) {

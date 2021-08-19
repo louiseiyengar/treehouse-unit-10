@@ -66,7 +66,7 @@ function CreateUpdateCourse (props) {
       //validation errors must be displayed
       if (response.status === 400) {
         setErrors(response.message);
-      //update or create course successful, redirect to home page.
+      //if update or creeate course successful, redirect to course's home screen
       } else if ((response.status === 204) || (response.status === 201)) {
         history.push('/');
       } else {
@@ -80,11 +80,16 @@ function CreateUpdateCourse (props) {
   }
 
   const handleCancel = () => {
-    history.push('/');
+    //if Update Course cancel, go to that course's detail screen,
+    //if Create Course cancel, got to home screen
+    (id) ?
+    history.push(`/courses/${id}`)
+    :
+    history.push('/')
    }
 
   useEffect(() => {
-    //if id is numeric, it is a course update, and initially, form fields must be
+    //if id is numeric, it is a course update, and initially, form field values must be
     //filled, so course data must be retrieved.
     if (id) {
       context.data.getCourses(id)
@@ -94,7 +99,7 @@ function CreateUpdateCourse (props) {
         if (data.status === 404) {
           history.push('/notfound')
         //userid of course owner must be the same as the id of the authenticated user
-        }else if (User.id !== context.authenticatedUser.id) {
+        } else if (User.id !== context.authenticatedUser.id) {
           history.push('/forbidden')
         } else {
           setCourseTitle(data.title);

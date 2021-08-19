@@ -12,16 +12,16 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Please provide a value for 'title'" },
-        notNull: { msg: "Please provide a value for 'title'"}
+        notEmpty: { msg: "Please provide a value for 'Title'" },
+        notNull: { msg: "Please provide a value for 'Title'"}
       }
     },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Please provide a value for 'description'" },
-        notNull: { msg: "Please provide a value for 'description'"}
+        notEmpty: { msg: "Please provide a value for 'Description'" },
+        notNull: { msg: "Please provide a value for 'Description'"}
       }
     },
     estimatedTime: {

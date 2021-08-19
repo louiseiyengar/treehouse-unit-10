@@ -33,7 +33,15 @@ router.post('/', bodyParser, asyncHandler(async (req, res) => {
 
   //function to format string with first letter uppercase, the rest to be lowercase
   const properCase = (string) => {
-    return (string && string.length > 1) ? string[0].toUpperCase() + string.slice(1).toLowerCase() : null;
+    if (string && string.length) {
+      if (string.length === 1) {
+        return string[0].toUpperCase()
+      } else {
+        return string[0].toUpperCase() + string.slice(1).toLowerCase()
+      }
+    } else {
+      return null
+    }
   };
 
   const user = req.body;
@@ -44,6 +52,7 @@ router.post('/', bodyParser, asyncHandler(async (req, res) => {
 
   user.firstName = properCase(user.firstName);
   user.lastName = properCase(user.lastName);
+  user.emailAddress = user.emailAddress.toLowerCase();
 
   //ensure password is greater than 4 characters (my own rule) and hash password
   user.password = (user.password && user.password.length >= 4) ? 

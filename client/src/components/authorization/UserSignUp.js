@@ -6,7 +6,7 @@ import ErrorsDisplay from '../ErrorsDisplay';
 
 /*
   This component renders a form that allows a user to sign up.  If sign up is successful, the Context's 
-  sign-in method will be called, the use will be signed in, and redirected to the home page.
+  sign-in method will be called, the user will be signed in, and redirected to the home page.
 
   Also renders a component that displays validation errors, if there are validation errors
 */
@@ -66,7 +66,7 @@ function UserSignUp () {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       history.push('/error');
     });
   }
